@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Fashion</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="action_search">Search</string>
+    <string name="action_cart">Cart</string>
+    <string name="action_hot_deals">Hot deals</string>
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>
