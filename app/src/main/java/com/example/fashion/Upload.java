@@ -8,7 +8,6 @@ public class Upload {
     private String mKey;
 
     public Upload() {
-        //empty constructor needed
     }
 
     public Upload(String name, String imageUrl) {

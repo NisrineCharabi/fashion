@@ -94,16 +94,8 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
     public void onDeleteClick(int position) {
         Upload selectedItem = mUploads.get(position);
         final String selectedKey = selectedItem.getKey();
-
-        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
-        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                mDatabaseRef.child(selectedKey).removeValue();
-                Toast.makeText(ImagesActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+        mDatabaseRef.child(selectedKey).removeValue();
+        mAdapter.notifyDataSetChanged();}}
 
 
 
@@ -129,23 +121,3 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mDatabaseRef.removeEventListener(mDBListener);
-    }
-}

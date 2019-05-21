@@ -2,11 +2,14 @@ package com.example.fashion;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -21,6 +24,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Context;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
+import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -28,16 +37,23 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.List;
+
 public class PostActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-
+    private Bitmap mBitmap;
     private Button mButtonChooseImage;
     private Button mButtonUpload;
     private TextView mTextViewShowUploads;
     private EditText mEditTextFileName;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
+    private Context context;
+    private String text;
+    private String entityId;
+    private float confidence;
 
     private Uri mImageUri;
 
@@ -45,15 +61,20 @@ public class PostActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
 
     private StorageTask mUploadTask;
+    private FirebaseVisionImageLabel[] labels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+
+
+
+
         mButtonChooseImage = findViewById(R.id.button_choose_image);
         mButtonUpload = findViewById(R.id.button_upload);
-        mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
+       
         mEditTextFileName = findViewById(R.id.edit_text_file_name);
         mImageView = findViewById(R.id.image_view);
         mProgressBar = findViewById(R.id.progress_bar);
@@ -71,6 +92,32 @@ public class PostActivity extends AppCompatActivity {
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(mBitmap);
+                FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
+                        .getOnDeviceImageLabeler();
+                labeler.processImage(image)
+                        .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
+                            @Override
+                            public void onSuccess(List<FirebaseVisionImageLabel> labels) {
+                                // Task completed successfully
+                                // ...
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Task failed with an exception
+                                // ...
+                            }
+                        });
+                for (FirebaseVisionImageLabel label:labels) {
+                    String text = label.getText();
+                    String entityId = label.getEntityId();
+                    float confidence = label.getConfidence();
+                }
+
+
+
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
                     Toast.makeText(PostActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
@@ -85,7 +132,15 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
+
+
+
+
+
 
     private void openFileChooser() {
         Intent intent = new Intent();
@@ -94,6 +149,9 @@ public class PostActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -101,6 +159,7 @@ public class PostActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
+            Log.d("image url",data.getData().toString());
 
             Glide.with(this).load(mImageUri).into(mImageView);
         }
@@ -114,7 +173,7 @@ public class PostActivity extends AppCompatActivity {
 
     private void uploadFile() {
         if (mImageUri != null) {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
+            final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
 
             mUploadTask = fileReference.putFile(mImageUri)
@@ -128,12 +187,18 @@ public class PostActivity extends AppCompatActivity {
                                     mProgressBar.setProgress(0);
                                 }
                             }, 500);
-
                             Toast.makeText(PostActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
-                                    mStorageRef.getDownloadUrl().toString());
-                            String uploadId = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadId).setValue(upload);
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
+                                            uri.toString());
+                                    Log.d("image url here" , uri.toString());
+                                    String uploadId = mDatabaseRef.push().getKey();
+                                    mDatabaseRef.child(uploadId).setValue(upload);
+                                }
+                            });
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
