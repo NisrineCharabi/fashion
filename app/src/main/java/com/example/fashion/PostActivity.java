@@ -12,10 +12,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +59,7 @@ public class PostActivity extends AppCompatActivity {
     private float confidence;
 
     private Uri mImageUri;
+    private Spinner spinner2, spinner3, spinner;
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -92,30 +96,6 @@ public class PostActivity extends AppCompatActivity {
         mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(mBitmap);
-                FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
-                        .getOnDeviceImageLabeler();
-                labeler.processImage(image)
-                        .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
-                            @Override
-                            public void onSuccess(List<FirebaseVisionImageLabel> labels) {
-                                // Task completed successfully
-                                // ...
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Task failed with an exception
-                                // ...
-                            }
-                        });
-                for (FirebaseVisionImageLabel label:labels) {
-                    String text = label.getText();
-                    String entityId = label.getEntityId();
-                    float confidence = label.getConfidence();
-                }
-
 
 
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
@@ -126,16 +106,36 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        mTextViewShowUploads.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.material, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-            }
-        });
+        Spinner spinner2 = findViewById(R.id.spinner2);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.thickness, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        Spinner spinner3 = findViewById(R.id.spinner3);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+                R.array.Type, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
 
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
 
 

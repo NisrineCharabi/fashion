@@ -1,9 +1,35 @@
 <resources>
     <string name="app_name">Fashion</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="action_search">Search</string>
-    <string name="action_cart">Cart</string>
-    <string name="action_hot_deals">Hot deals</string>
-    <!-- TODO: Remove or change this placeholder text -->
+  <string-array name="material">
+
+     <item>Cotton</item>
+      <item>Wool</item>
+      <item>Denim</item>
+      <item>Leather</item>
+      <item>Silk</item>
+      <item>Lace</item>
+      <item>Knit</item>
+      <item>Velvet</item>
+      <item>Linen</item>
+  </string-array>
+
+    <string-array name="thickness">
+
+        <item>Thick</item>
+        <item>Medium</item>
+        <item>Thin</item>
+
+    </string-array>
+
+    <string-array name="Type">
+
+        <item>no sleeve</item>
+        <item>mid sleeve</item>
+        <item>long sleeve</item>
+        <item>Bottom</item>
+
+    </string-array>
+
+
 </resources>
