@@ -59,7 +59,7 @@ public class PostActivity extends AppCompatActivity {
     private float confidence;
 
     private Uri mImageUri;
-    private Spinner spinner2, spinner3, spinner;
+    private Spinner spinner2, spinner3, spinner, spinner4;
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -123,6 +123,12 @@ public class PostActivity extends AppCompatActivity {
                 R.array.Type, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner3.setAdapter(adapter3);
+
+        Spinner spinner4 = findViewById(R.id.spinner4);
+        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(this,
+                R.array.Colour, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner4.setAdapter(adapter4);
 
 
     }

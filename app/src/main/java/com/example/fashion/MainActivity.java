@@ -79,7 +79,7 @@ find_weather();
 
 
     public void find_weather(){
-        String url="http://api.openweathermap.org/data/2.5/weather?id=2464470&appid=4456ef3eb82419b2e39e3a60f0151924";
+        String url="http://api.openweathermap.org/data/2.5/weather?id=2464470&appid=4456ef3eb82419b2e39e3a60f0151924&units=metric";
         JsonObjectRequest jor= new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -94,7 +94,7 @@ find_weather();
                     t1_temp.setText(temp);
                     t2_city.setText(city);
                     double temp_int=Double.parseDouble(temp);
-                    double centi=(temp_int-32)/1.8000;
+                    double centi=(temp_int-0);
                     centi=Math.round(centi);
                     int i=(int)centi;
                     t1_temp.setText(String.valueOf(i));

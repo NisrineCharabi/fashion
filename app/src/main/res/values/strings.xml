@@ -30,6 +30,20 @@
         <item>Bottom</item>
 
     </string-array>
+    <string-array name="Colour">
 
+        <item>Black</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Brown</item>
+        <item>Nude</item>
+        <item>Pink</item>
+        <item>Orange</item>
+        <item>Yellow</item>
+        <item>Purple</item>
+        <item>Green</item>
+        <item>Grey</item>
+        <item>Blue</item>
+    </string-array>
 
 </resources>

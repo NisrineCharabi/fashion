@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
     tools:context=".RecommendActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="285dp"
+        android:layout_height="30dp"
+        android:text="We paired this outfit for you"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="75dp" />
 
     <ProgressBar
         android:id="@+id/progress_circle"
@@ -29,21 +42,10 @@
         android:layout_width="239dp"
         android:layout_height="255dp"
         android:src="@drawable/bottom"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="327dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="327dp" />
 
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="285dp"
-        android:layout_height="30dp"
-        android:text="We paired this outfit for you"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="75dp"
-        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/buttonop"
@@ -56,4 +58,4 @@
         tools:layout_editor_absoluteX="281dp"
         tools:layout_editor_absoluteY="616dp" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

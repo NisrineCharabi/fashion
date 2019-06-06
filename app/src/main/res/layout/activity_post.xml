@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/progress_bar"
         android:layout_below="@id/edit_text_file_name"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="200dp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -64,6 +64,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp" />
+
+    <Spinner
+        android:id="@+id/spinner4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp" />
 
 
 </RelativeLayout>
