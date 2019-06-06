@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private Button buttonadd;
 private Button buttoncloset;
+private Button buttonrec;
 
 TextView t1_temp;
     TextView t2_city;
@@ -62,10 +63,20 @@ t2_city=(TextView)findViewById(R.id.textView2);
             }
         });
 
+        buttonrec=(Button)findViewById(R.id.buttonrec);
+        buttonrec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRecommendActivity();
+            }
+        });
+
 
 find_weather();
 
     }
+
+
 
     public void find_weather(){
         String url="http://api.openweathermap.org/data/2.5/weather?id=2464470&appid=4456ef3eb82419b2e39e3a60f0151924";
@@ -128,6 +139,9 @@ find_weather();
         Intent intent= new Intent(this, ImagesActivity.class);
         startActivity(intent);}
 
+    public void openRecommendActivity(){
+        Intent intent= new Intent(this, RecommendActivity.class);
+        startActivity(intent);}
 
 
 

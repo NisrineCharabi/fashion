@@ -4,6 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Recommend">
+    tools:context=".RecommendActivity">
+
+    <ProgressBar
+        android:id="@+id/progress_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="279dp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="170dp"
+        android:layout_height="151dp"
+        android:src="@drawable/top"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="138dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="239dp"
+        android:layout_height="255dp"
+        android:src="@drawable/bottom"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="327dp"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="285dp"
+        android:layout_height="30dp"
+        android:text="We paired this outfit for you"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="75dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonop"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Option2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColorLink="@color/colorDivider"
+        tools:layout_editor_absoluteX="281dp"
+        tools:layout_editor_absoluteY="616dp" />
 
 </android.support.constraint.ConstraintLayout>

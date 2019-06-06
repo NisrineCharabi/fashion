@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Fashion</string>
 
-  <string-array name="material">
+    <string-array name="material">
 
-     <item>Cotton</item>
-      <item>Wool</item>
-      <item>Denim</item>
-      <item>Leather</item>
-      <item>Silk</item>
-      <item>Lace</item>
-      <item>Knit</item>
-      <item>Velvet</item>
-      <item>Linen</item>
-  </string-array>
+        <item>Cotton</item>
+        <item>Wool</item>
+        <item>Denim</item>
+        <item>Leather</item>
+        <item>Silk</item>
+        <item>Lace</item>
+        <item>Knit</item>
+        <item>Velvet</item>
+        <item>Linen</item>
+    </string-array>
 
     <string-array name="thickness">
 
